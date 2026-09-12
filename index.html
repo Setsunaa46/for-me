@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Selamat Menjalani Kuliahnya ★ </title>
+
+  <!-- ============================================
+       CARA EDIT WEBSITE INI (singkat):
+       1. NAMA            -> rubah teks di <h1 id="namaUtama">
+       2. PESAN/DOA       -> edit teks di <div id="pesanKonten"> (atau
+                             klik tombol "Edit Pesan" di halaman)
+       3. FOTO GALERI     -> pilih dengan tombol "Pilih Foto" (maks 4,
+                             otomatis tersimpan, disimpan sebagai JPEG)
+                             ATAU taruh file di folder "foto" dengan nama
+                             foto1.jpg…foto4.jpg (format JPEG)
+                             dan langsung tampil otomatis.
+       4. LAGU MUSIK LATAR-> taruh file lagu.mp3 di folder yang sama
+                             dgn index.html. Kalau tidak ada, otomatis
+                             diputar melodi "Happy Birthday" bawaan.
+       ============================================ -->
+
+  <!-- Font (punya fallback otomatis kalau offline) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Mulish:wght@300;400;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- PARTIKEL BACKGROUND (bintang & debu emas) -->
+  <canvas id="bgCanvas" aria-hidden="true"></canvas>
+
+  <!-- MUSIK LATAR : letakkan lagu.mp3 di folder ini -->
+  <audio id="audioLagu" src="RAIM LAODE - PADA HATI YANG MANA (OFFICIAL LYRIC VIDEO) (1).mp3" loop preload="auto"></audio>
+
+  <!-- ==================== HALAMAN PEMBUKA ==================== -->
+  <section id="cover">
+    <div class="cover-inner">
+      <p class="cover-tag">Hari ini spesial, ternyata kita sudah memasuki minggu ke 2 kuliah…</p>
+      <h1 class="cover-title">Sebuah Kejutan Kecil</h1>
+      <div class="ornament" aria-hidden="true">
+        <span class="ornament-line"></span>
+        <span class="diamond"></span>
+        <span class="ornament-line"></span>
+      </div>
+      <button id="btnBuka" class="btn-gold" type="button">Buka Kejutan</button>
+      <p class="cover-hint">(nyalakan suara ya, ada lagunya)</p>
+    </div>
+  </section>
+
+  <!-- ==================== ISI UTAMA ==================== -->
+  <main id="main" aria-hidden="true">
+
+    <!-- Hero: nama + animasi teks -->
+    <section class="sec hero">
+      <p class="script">Selamat Menjalani Kuliahnya,</p>
+      <h1 id="namaUtama">MYU BAGIAN POLTEK</h1>
+      <div class="ornament" aria-hidden="true">
+        <span class="ornament-line"></span>
+        <span class="diamond"></span>
+        <span class="ornament-line"></span>
+      </div>
+      <p class="typed-line" id="typedLine" aria-live="polite"></p>
+    </section>
+
+    <!-- Kue + lilin yang bisa ditiup -->
+    <section class="sec cake-sec">
+      <h2 class="sec-title">Tiup Lilinnya, Buat Permintaanmu</h2>
+      <p class="sec-sub">Klik tiap api lilin untuk meniupnya</p>
+
+      <button id="btnResetLilin" class="btn-ghost" type="button" hidden>Nyalakan Kembali Lilin</button>
+
+      <div class="cake-scene" id="cakeScene" aria-label="Kue ulang tahun dengan tiga lilin">
+        <div class="candles" id="candles"></div>
+        <div class="cake-top" aria-hidden="true"></div>
+        <div class="cake-tiers" aria-hidden="true">
+          <div class="tier tier-b"></div>
+          <div class="tier tier-c"></div>
+        </div>
+        <div class="cake-plate" aria-hidden="true"></div>
+        <div class="cake-shadow" aria-hidden="true"></div>
+      </div>
+
+      <p id="cakeMsg" class="cake-msg"></p>
+    </section>
+
+    <!-- Galeri foto kenangan (maks 4 foto) -->
+    <section class="sec gallery-sec">
+      <h2 class="sec-title">Kenangan Kita</h2>
+      <p class="sec-sub">Pilih sampai 4 foto terindah dari perangkatmu — otomatis tersimpan, penerima tidak perlu memilih ulang</p>
+
+      <label class="btn-upload btn-gold">
+        Pilih Foto (maks 4)
+        <input type="file" id="fotoInput" accept="image/*" multiple hidden />
+      </label>
+      <button id="btnHapusFoto" class="btn-ghost" type="button" hidden>Hapus Semua Foto</button>
+      <button id="btnUnduhFoto" class="btn-ghost" type="button" hidden>Simpan Foto ke File (untuk dibagikan)</button>
+      <p id="fotoStatus" class="foto-status"></p>
+
+      <div class="slider" id="slider">
+        <div class="track" id="track"></div>
+        <button class="nav nav-prev" id="navPrev" type="button" aria-label="Foto sebelumnya">
+          <svg viewBox="0 0 24 24" width="20" height="20"><path d="M15 4 7 12l8 8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="nav nav-next" id="navNext" type="button" aria-label="Foto berikutnya">
+          <svg viewBox="0 0 24 24" width="20" height="20"><path d="m9 4 8 8-8 8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="dots" id="dots" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <!-- Pesan & doa (bisa diedit langsung) -->
+    <section class="sec pesan-sec">
+      <h2 class="sec-title">Doa &amp; Pesan untukmu</h2>
+      <div id="pesanKonten" class="pesan-konten">
+        <p>
+          Di hari yang paling dinantikan ini, kami ingin kamu tahu betapa berharganya
+          kamu. Terima kasih sudah hadir, membuat hari-hari terasa lebih hangat dan
+          penuh warna.
+        </p>
+        <p>
+          Semoga semua doa terbaik menyertai setiap langkahmu. Sehat selalu, bahagia
+          selalu, dan semoga apa yang kamu impikan segera terwujud. Kami bangga padamu!
+        </p>
+        <p class="pesan-sign">— Dari orang-orang yang bangga padamu</p>
+      </div>
+      <div class="pesan-aksi">
+        <button id="btnEditPesan" class="btn-ghost" type="button">Edit Pesan Ini</button>
+        <button id="btnSimpanPesan" class="btn-gold" type="button" hidden>Simpan Perubahan</button>
+        <button id="btnResetPesan" class="btn-ghost" type="button" hidden>Kembalikan Awal</button>
+      </div>
+    </section>
+
+    <footer class="foot">
+      <div class="ornament" aria-hidden="true">
+        <span class="ornament-line"></span>
+        <span class="diamond"></span>
+        <span class="ornament-line"></span>
+      </div>
+      <p>Dibuat dengan sepenuh hati untuk kalian. Semangat Kuliahnya!</p>
+    </footer>
+  </main>
+
+  <!-- Tombol musik melayang -->
+  <button id="btnMusic" class="btn-music" type="button" aria-label="Putar / hentikan musik" aria-pressed="false">
+    <svg id="iconPlayOn" class="ic" viewBox="0 0 24 24" width="22" height="22">
+      <path d="M9 18V6l10 6-10 6z" fill="currentColor"/>
+    </svg>
+    <svg id="iconPlayOff" class="ic" viewBox="0 0 24 24" width="22" height="22" hidden>
+      <path d="M9 18V6l10 6-10 6z" fill="currentColor"/>
+      <rect x="4.5" y="5" width="2.4" height="14" rx="1.2" fill="currentColor"/>
+    </svg>
+  </button>
+
+  <!-- Wadah efek khusus (confetti / kembang api lilin) -->
+  <div id="fx" aria-hidden="true"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
