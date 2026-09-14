@@ -710,45 +710,6 @@
   audio.addEventListener("ended", function () { playing = false; setIkon(); });
 
   /* ===================================
-     8) PESAN PERSONAL — bisa diedit + tersimpan
-  ==================================== */
-  var kontenPesan = $("pesanKonten");
-  var cPesan = kontenPesan.innerHTML;   // pesan bawaan (default)
-  var btnEdit = $("btnEditPesan");
-  var btnSimpan = $("btnSimpanPesan");
-  var btnResetPesan = $("btnResetPesan");
-
-  // muat pesan tersimpan (kalau ada)
-  try {
-    var simpanan = localStorage.getItem("pesanUlangTahun");
-    if (simpanan) kontenPesan.innerHTML = simpanan;
-  } catch (e) {}
-
-  btnEdit.addEventListener("click", function () {
-    kontenPesan.contentEditable = "true";
-    kontenPesan.classList.add("mengetik");
-    kontenPesan.focus();
-    btnEdit.hidden = true;
-    btnSimpan.hidden = false;
-    btnResetPesan.hidden = false;
-  });
-
-  btnSimpan.addEventListener("click", function () {
-    kontenPesan.contentEditable = "false";
-    kontenPesan.classList.remove("mengetik");
-    btnEdit.hidden = false;
-    btnSimpan.hidden = true;
-    btnResetPesan.hidden = true;
-    try { localStorage.setItem("pesanUlangTahun", kontenPesan.innerHTML); } catch (e) {}
-  });
-
-  btnResetPesan.addEventListener("click", function () {
-    kontenPesan.innerHTML = cPesan;
-    btnSimpan.click();
-    btnResetPesan.hidden = true;
-  });
-
-  /* ===================================
      9) MUNCULKAN SEKSI SAAT DI-SCROLL
   ==================================== */
   if ("IntersectionObserver" in window) {
